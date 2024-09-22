@@ -149,6 +149,7 @@ pub struct ListDnsRecordsParams {
 #[derive(Deserialize, Debug)]
 pub struct Meta {
     /// Will exist if Cloudflare automatically added this DNS record during initial setup.
+    #[serde(default)]
     pub auto_added: bool,
 }
 
@@ -178,8 +179,6 @@ pub struct DeleteDnsRecordResponse {
 pub struct DnsRecord {
     /// Extra Cloudflare-specific information about the record
     pub meta: Meta,
-    /// Whether this record can be modified/deleted (true means it's managed by Cloudflare)
-    pub locked: bool,
     /// DNS record name
     pub name: String,
     /// Time to live for DNS record. Value of 1 is 'automatic'
@@ -191,6 +190,7 @@ pub struct DnsRecord {
     /// When the record was created
     pub created_on: DateTime<Utc>,
     /// Whether this record can be modified/deleted (true means it's managed by Cloudflare)
+    #[serde(default)]
     pub proxiable: bool,
     /// Type of the DNS record that also holds the record value
     #[serde(flatten)]
@@ -198,6 +198,7 @@ pub struct DnsRecord {
     /// DNS record identifier tag
     pub id: String,
     /// Whether the record is receiving the performance and security benefits of Cloudflare
+    #[serde(default)]
     pub proxied: bool,
     /// The domain of the record
     pub zone_name: String,
